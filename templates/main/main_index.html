@@ -81,8 +81,8 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h6 class="text-muted">Ventas Hoy</h6>
-                        <h3 class="fw-bold">$1,245.80</h3>
-                        <p class="text-success"><i class="bi bi-arrow-up"></i> +12%</p>
+                        <h3 class="card-title">{{ventas_totales}}</h3>
+                        <p class="card-text small text-success"></p>
                     </div>
                     <div class="card-icon"><i class="bi bi-currency-dollar"></i></div>
                 </div>
@@ -94,8 +94,8 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h6 class="text-muted">Órdenes Hoy</h6>
-                        <h3 class="fw-bold">42</h3>
-                        <p class="text-success"><i class="bi bi-arrow-up"></i> +5%</p>
+                         <h3 class="card-title">{{cantidad_ordenes}}</h3>
+                         <p class="text-success"><i class="bi bi-arrow-up"></i> +5%</p>
                     </div>
                     <div class="card-icon"><i class="bi bi-cart-check"></i></div>
                 </div>
@@ -138,87 +138,93 @@
                 <div class="card-header"><h5>Órdenes Recientes</h5></div>
                 <div class="card-body">
 
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="d-flex align-items-center">
-                            <i class="bi bi-person me-2 icon-green"></i>
-                            <div>
-                                <h6 class="mb-0">María González</h6>
-                                <small>#ORD-1245</small>
-                            </div>
-                        </div>
-                        <span class="order-status-badge bg-success text-white">Completado</span>
-                    </div>
-
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="d-flex align-items-center">
-                            <i class="bi bi-person me-2 icon-green"></i>
-                            <div>
-                                <h6 class="mb-0">Juan Pérez</h6>
-                                <small>#ORD-1246</small>
-                            </div>
-                        </div>
-                        <span class="order-status-badge bg-warning text-dark">En preparación</span>
-                    </div>
-
+                    {% for orden in ultimas_ordenes %}
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                     <div class="d-flex align-items-center">
+                          <div class="bg-light rounded p-2 me-2">
+                             <i class="bi bi-person text-primary"></i>
+                          </div>
+                      <div>
+                          <h6 class="mb-0">{{orden.mesa.nombre}}</h6>
+                          <small class="text-muted">#ORD-{{ orden.id }}</small>
+                      </div>
+                      </div>
+                        <span class="order-status-badge {% if orden.estatus == 'pagada' %}bg-success text-white{% elif orden.estatus == 'pendiente' %}bg-warning text-dark{% else %}bg-danger text-white{% endif %}">{{ orden.estatus }}</span>
+                  </div>
+            {% endfor %}
+            
                 </div>
             </div>
         </div>
 
-        <!-- GRÁFICO -->
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header"><h5>Ventas de la Semana</h5></div>
-                <div class="card-body text-center" style="height: 300px;">
-                    <p class="text-muted">Aquí iría el gráfico de ventas semanales</p>
-                </div>
-            </div>
+         <!-- Ventas de la Semana -->
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header"><h5>Ventas de la Semana</h5></div>
+           <div class="d-flex align-items-center justify-content-center" style="height: 300px;">                            
+                            <canvas id="myChart"></canvas>
+          </div>
         </div>
-
+      </div>
     </div>
 
-    <!-- PLATOS POPULARES -->
+    
+    <!-- Platos Populares -->
     <div class="card">
-        <div class="card-header"><h5>Platos Más Populares</h5></div>
-
-        <div class="card-body">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Plato</th>
-                        <th>Ventas</th>
-                        <th>Ingresos</th>
-                        <th>Rating</th>
-                        <th>Tendencia</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Enchiladas Verdes</td>
-                        <td>86</td>
-                        <td>$1,204.00</td>
-                        <td>4.8</td>
-                        <td><i class="bi bi-arrow-up text-success"></i></td>
-                    </tr>
-                    <tr>
-                        <td>Tacos Gobernador</td>
-                        <td>64</td>
-                        <td>$831.36</td>
-                        <td>4.7</td>
-                        <td><i class="bi bi-arrow-up text-success"></i></td>
-                    </tr>
-                    <tr>
-                        <td>Carne Asada</td>
-                        <td>52</td>
-                        <td>$883.48</td>
-                        <td>4.9</td>
-                        <td><i class="bi bi-dash text-secondary"></i></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+      <div class="card-header"><h5>Platillos Más Populares</h5></div>
+      <div class="card-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Platillo</th>
+              <th>Cantidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for platillo in platillos_mas_vendidas %}
+                {% if platillo.total_vendido > 0 %}
+                  <tr>
+                  <td>{{ platillo.detalles__platillo__nombre }}</td>
+                  <td>{{ platillo.total_vendido }}</td>                                            
+                  </tr>
+                {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
 
-</div>
+<script src=" https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js "></script>
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [
+        {% for venta in ventas_por_dia %}
+            '{{venta.dia|safe}}'{% if not forloop.last %},{% endif %}
+        {% endfor %}
+      ],
+      datasets: [{
+        label: 'Ventas',
+        data: [
+          {% for venta in ventas_por_dia %}
+              {{venta.total|safe}}{% if not forloop.last %},{% endif %}
+          {% endfor %}
+            ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
 
 {% endblock %}
-</html>
