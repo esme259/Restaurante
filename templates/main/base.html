@@ -4,36 +4,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurante</title>
+    <title>El Nopal 🌵</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 
-    <style>
-        .hero-section {
-            background-color: #f8f9fa;
-            padding: 100px 0;
-            text-align: center;
+   <style>
+        body {
+            font-family: "Georgia", serif;
+            background-color: #faf3e0; /* crema */
+            color: #3d3d3d;
         }
-        .menu-category {
-            margin-bottom: 30px;
+
+        /* NAVBAR */
+        .navbar {
+            background-color: #2e7d32; /* verde agave */
         }
-        .testimonial {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        footer {
-            background-color: #343a40;
-            color: white;
-            padding: 40px 0;
-            margin-top: 50px;
-        }
-        .nav-link {
-            color: #495057;
-            font-weight: 500;
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+            font-weight: bold;
+            letter-spacing: 0.5px;
         }
         .nav-link:hover {
-            color: #000;
+            color: #c8a600 !important; /* dorado */
+        }
+
+        /* HERO */
+        .hero-section {
+            background-image: url("{% static 'images/nopal_hero.png' %}");
+            background-size: cover;
+            background-position: center;
+            padding: 110px 20px;
+            color: white;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.45);
+            text-align: center;
+        }
+
+        /* BOTONES */
+        .btn-accion {
+            background-color: #c8a600; /* dorado */
+            color: #2e7d32;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+        }
+        .btn-accion:hover {
+            background-color: #b39500;
+            transform: scale(1.05);
+        }
+
+        /* IMÁGENES */
+        .menu-category img {
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        /* TESTIMONIOS */
+        .testimonial {
+            background-color: #faf3e0; 
+            border-left: 5px solid #c8a600;
+            padding: 22px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #2e7d32;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        footer a {
+            color: #c8a600;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
     {% block extra_head %}

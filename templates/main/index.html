@@ -4,181 +4,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dragón Dorado - Restaurante Chino</title>
+    <title>El Nopal - Restaurante Mexicano</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
-    <style>
-        body {
-            font-family: 'Georgia', serif;
-            background-color: #fff5e6;
-        }
-        .navbar {
-            background-color: #c62828; /* rojo oriental */
-        }
-        .navbar-brand, .nav-link {
-            color: #fff !important;
-            font-weight: bold;
-        }
-        .nav-link:hover {
-            color: #ffd54f !important;
-        }
-        .hero-section {
-            background-image: url("{% static 'images/fondo2.png' %}");
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 120px 20px;
-            text-align: center;
-        }
-        .hero-section h1 {
-            font-size: 3rem;
-            font-weight: bold;
-        }
-        .hero-section p {
-            font-size: 1.3rem;
-            margin-top: 10px;
-        }
-        .btn-reserva {
-            background-color: #ffd54f;
-            color: #8e0000;
-            font-weight: bold;
-            padding: 10px 20px;
-            margin-top: 20px;
-            border: none;
-        }
-        .btn-reserva:hover {
-            background-color: #ffca28;
-            transform: scale(1.05);
-        }
-        .menu-section {
-            padding: 60px 20px;
-            text-align: center;
-        }
-        .menu-category {
-            margin-bottom: 40px;
-        }
-        .menu-category img {
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-        }
-        .testimonial {
-            background-color: #fff5e6;
-            padding: 25px;
-            border-radius: 10px;
-            margin: 15px 0;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-        footer {
-            background-color: #8e0000;
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-        footer a {
-            color: #ffd54f;
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
+<style>
+    :root {
+        --mex-green: #2E5339;
+        --mex-brown: #4E342E;
+        --mex-gold:  #CFA66B;
+        --mex-cream: #F4F0E6;
+    }
+
+    body {
+        background-color: var(--mex-cream);
+        font-family: "Segoe UI", sans-serif;
+    }
+
+    /* NAVBAR */
+    .navbar {
+        background-color: var(--mex-green);
+        border-bottom: 3px solid var(--mex-gold);
+    }
+    .navbar-brand, .nav-link {
+        color: white !important;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+    }
+    .nav-link:hover {
+        color: var(--mex-gold) !important;
+    }
+
+    /* HERO */
+    .hero-section {
+        background-image: url("{% static 'images/fondo2.png' %}");
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 140px 20px;
+        text-align: center;
+        border-bottom: 4px solid var(--mex-gold);
+    }
+    .hero-section h1 {
+        font-size: 3.2rem;
+        font-weight: bold;
+        text-shadow: 2px 2px 10px rgba(0,0,0,0.4);
+    }
+    .hero-section p {
+        font-size: 1.3rem;
+        margin-top: 10px;
+        font-weight: 500;
+    }
+    .btn-reserva {
+        background-color: var(--mex-gold);
+        color: var(--mex-brown);
+        font-weight: bold;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 8px;
+        transition: 0.2s;
+    }
+    .btn-reserva:hover {
+        background-color: #d8b178;
+        transform: scale(1.05);
+    }
+
+    /* MENÚ */
+    .menu-section h2 {
+        color: var(--mex-green);
+        font-weight: bold;
+        border-left: 6px solid var(--mex-gold);
+        padding-left: 12px;
+        display: inline-block;
+    }
+    .menu-category img {
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    }
+    .menu-category h4 {
+        color: var(--mex-brown);
+        font-weight: bold;
+    }
+
+    /* TESTIMONIALS */
+    .testimonial {
+        background-color: white;
+        padding: 25px;
+        border-left: 6px solid var(--mex-gold);
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    /* FOOTER */
+    footer {
+        background-color: var(--mex-green);
+        color: white;
+        padding: 40px 20px;
+        text-align: center;
+        border-top: 3px solid var(--mex-gold);
+    }
+    footer a {
+        color: var(--mex-gold);
+        text-decoration: none;
+    }
+    footer a:hover {
+        text-decoration: underline;
+    }
+</style>
 </head>
+
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="#">🐉 Dragón Dorado</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="menuNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Menú</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Reservas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
-                    </li>
-                </ul>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <i class="bi bi-tree-fill me-2" style="color: var(--mex-gold);"></i>
+            El Nopal 🌵
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menuNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Menú</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Reservas</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">Login</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-section">
+    <h1>Bienvenido a El Nopal 🌵</h1>
+    <p>Sabores auténticos de México con un toque artesanal.</p>
+    <a href="#" class="btn btn-reserva">Reserva tu mesa</a>
+</section>
+
+<!-- MENÚ -->
+<section class="menu-section container py-5">
+    <h2 class="mb-5">Platillos Destacados</h2>
+
+    <div class="row">
+        <div class="col-md-4 menu-category">
+            <img src="{% static 'images/dim_sum.png' %}" class="img-fluid" alt="Platillo 1">
+            <h4 class="mt-3">Enchiladas Artesanales</h4>
+            <p>Tradicionales, preparadas con tortilla hecha a mano.</p>
+        </div>
+
+        <div class="col-md-4 menu-category">
+            <img src="{% static 'images/pollo_naranja.png' %}" class="img-fluid" alt="Platillo 2">
+            <h4 class="mt-3">Mole de la Casa</h4>
+            <p>Mole casero con receta tradicional familiar.</p>
+        </div>
+
+        <div class="col-md-4 menu-category">
+            <img src="{% static 'images/ramen.png' %}" class="img-fluid" alt="Platillo 3">
+            <h4 class="mt-3">Tacos de Barbacoa</h4>
+            <p>Cocción lenta en horno de tierra al estilo antiguo.</p>
+        </div>
+
+        <!-- HISTORIA -->
+        <div class="col-md-6 mt-5">
+            <h2 class="mb-3" style="color: var(--mex-green);">Nuestra Historia</h2>
+            <p>Desde 1992, El Nopal ha sido un espacio donde la gastronomía mexicana se vive con tradición, sabor y familia. Fundado por el maestro cocinero Don Aurelio, este lugar nació para compartir recetas pasadas de generación en generación.</p>
+            <p>Nuestro compromiso es ofrecer comida mexicana auténtica, con ingredientes frescos y sazón artesanal.</p>
+        </div>
+
+        <!-- HORARIOS -->
+        <div class="col-md-6 mt-5">
+            <h2 class="mb-3" style="color: var(--mex-green);">Horario de Atención</h2>
+            <ul class="list-unstyled">
+                <li><strong>Lunes a Jueves:</strong> 11:00 am – 9:00 pm</li>
+                <li><strong>Viernes y Sábado:</strong> 11:00 am – 10:30 pm</li>
+                <li><strong>Domingo:</strong> 12:00 pm – 8:00 pm</li>
+            </ul>
+            <p class="mt-3"><i class="bi bi-geo-alt-fill me-2" style="color: var(--mex-gold);"></i>Calle Principal #123, Ciudad Sabrosa</p>
+        </div>
+    </div>
+</section>
+
+<!-- RESEÑAS -->
+<section class="container my-5">
+    <h2 class="text-center mb-4" style="color: var(--mex-green);">Lo que dicen nuestros clientes</h2>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="testimonial">
+                <p>"La comida más auténtica que he probado. ¡Un viaje a México!"</p>
+                <strong>- Laura G.</strong>
             </div>
         </div>
-    </nav>
 
-    <!-- Hero -->
-    <section class="hero-section">
-        <h1>Bienvenido a Dragón Dorado</h1>
-        <p>La auténtica experiencia de la cocina china, con los sabores más tradicionales.</p>
-        <a href="#" class="btn btn-reserva">Reserva tu mesa</a>
-    </section>
-
-    <!-- Menú -->
-    <section class="menu-section container">
-        <h2 class="mb-5 text-danger">Platillos Destacados</h2>
-        <div class="row">
-            <div class="col-md-4 menu-category">
-                <img src="{% static 'images/dim_sum.png' %}" alt="Dim Sum" class="img-fluid">
-                <h4 class="mt-3">Dim Sum</h4>
-                <p>Pequeños bocados llenos de tradición y sabor.</p>
-            </div>
-            <div class="col-md-4 menu-category">
-                <img src="{% static 'images/pollo_naranja.png' %}" alt="Pollo a la Naranja" class="img-fluid">
-                <h4 class="mt-3">Pollo a la Naranja</h4>
-                <p>El equilibrio perfecto entre lo dulce y lo cítrico.</p>
-            </div>
-            <div class="col-md-4 menu-category">
-                <img src="{% static 'images/ramen.png' %}" alt="Ramen" class="img-fluid">
-                <h4 class="mt-3">Ramen Chino</h4>
-                <p>Sopa tradicional con fideos caseros y especias orientales.</p>
-            </div>
-             <div class="col-md-6">
-                    <h2>Nuestra Historia</h2>
-                    <p>Desde 1992, Dragón Dorado ha sido un rincón donde la tradición y el sabor de la auténtica cocina china se encuentran con la calidez mexicana. Nuestro fundador, el maestro culinario Liang Wei, llegó a Matamoros con el sueño de compartir las recetas de su familia, transmitidas de generación en generación desde su natal Cantón.</p>
-                    <p>Lo que comenzó como un pequeño local con apenas unas mesas, pronto se convirtió en un punto de encuentro para quienes buscaban más que una comida: una experiencia cultural. </p>
-                </div>
-             <div class="col-md-6">
-                    <h2>Horario de Atención</h2>
-                    <ul class="list-unstyled">
-                        <li><strong>Lunes a Jueves:</strong> 11:00 am - 9:00 pm</li>
-                        <li><strong>Viernes y Sábado:</strong> 11:00 am - 10:30 pm</li>
-                        <li><strong>Domingo:</strong> 12:00 pm - 8:00 pm</li>
-                    </ul>
-                    <p class="mt-3">Visítanos en Calle Principal #123, Ciudad Sabrosa</p>
-                </div>
-        </div>
-    </section>
-
-    <!-- Reseñas -->
-    <section class="container my-5">
-        <h2 class="text-danger text-center mb-4">Lo que dicen nuestros clientes</h2>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="testimonial">
-                    <p>"El mejor pollo a la naranja que he probado en mi vida. ¡Increíble!"</p>
-                    <strong>- Laura G.</strong>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="testimonial">
-                    <p>"Ambiente acogedor, atención excelente y auténtico sabor oriental."</p>
-                    <strong>- Carlos M.</strong>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="testimonial">
-                    <p>"Definitivamente mi restaurante favorito para cenar con la familia."</p>
-                    <strong>- Andrea P.</strong>
-                </div>
+        <div class="col-md-4">
+            <div class="testimonial">
+                <p>"Ambiente acogedor, sabores increíbles y atención impecable."</p>
+                <strong>- Carlos M.</strong>
             </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Dragón Dorado - Todos los derechos reservados</p>
-        <p><a href="#">Términos de uso</a> | <a href="#">Política de privacidad</a></p>
-    </footer>
+        <div class="col-md-4">
+            <div class="testimonial">
+                <p>"Mi lugar favorito para comer con la familia. ¡Excelente!"</p>
+                <strong>- Andrea P.</strong>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<!-- FOOTER -->
+<footer>
+    <p>&copy; 2025 El Nopal 🌵 - Todos los derechos reservados</p>
+    <p><a href="#">Términos de uso</a> | <a href="#">Política de privacidad</a></p>
+</footer>
+
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
 </body>
 </html>
