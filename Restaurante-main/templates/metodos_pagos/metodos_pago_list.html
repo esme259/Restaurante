@@ -1,0 +1,25 @@
+{% extends 'main/base_user.html' %}
+
+{% block content %}
+<h1>Lista de Metodos de Pago</h1>
+<a class="btn btn-primary" href="{% url 'mesas:metodos_pago_create' %}">Agregar Metodo de pago</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for metodos_pago in object_list %}
+        <tr>
+            <td>
+                <a class="btn btn-primary" href="{% url 'mesas:metodos_pago_edit' metodos_pago.pk %}">Editar</a>
+                <a class="btn btn-danger" href="{% url 'mesas:metodos_pago_delete' metodos_pago.pk %}">Eliminar</a>
+            </td>
+            <td>{{metodos_pago.nombre}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

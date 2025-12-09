@@ -1,0 +1,126 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+<style>
+    body {
+        background-color: #fff5e6;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        background-image:  url("{% static 'images/fondo.png' %}");
+        background-size: cover;
+        background-position: center;
+    }
+    .login-container {
+        max-width: 450px;
+        width: 100%;
+        padding: 20px;
+        margin: auto;
+    }
+    .login-card {
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+    }
+    .login-header {
+        background-color: #c62828; /* rojo oriental */
+        color: white;
+        text-align: center;
+        padding: 15px;
+    }
+    .login-header h3 {
+        font-family: 'Georgia', serif;
+        font-size: 1.8rem;
+    }
+    .login-body {
+        padding: 30px;
+        background-color: #fff;
+    }
+    .form-control:focus {
+        border-color: #e53935;
+        box-shadow: 0 0 0 0.25rem rgba(229, 57, 53, 0.25);
+    }
+    .btn-login {
+        background-color: #c62828;
+        border: none;
+        color: white;
+        padding: 10px;
+        transition: all 0.3s;
+        width: 100%;
+        font-size: 1.1rem;
+    }
+    .btn-login:hover {
+        background-color: #8e0000;
+        transform: translateY(-2px);
+    }
+    .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: #6c757d;
+        margin: 20px 0;
+    }
+    .divider::before,
+    .divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #dee2e6;
+    }
+    .divider::before { margin-right: .5em; }
+    .divider::after { margin-left: .5em; }
+    .login-footer {
+        text-align: center;
+        padding: 15px;
+        background-color: #fff5e6;
+        border-top: 1px solid #e0e0e0;
+    }
+    .social-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        margin: 0 5px;
+        text-decoration: none;
+    }
+    .link-primary {
+        color: #c62828;
+        text-decoration: none;
+    }
+    .link-primary:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <h3>Dragón Dorado</h3>
+            <img src="{% static 'images/logo_dragon.png' %}" alt="Logo Dragón Dorado" class="img-fluid mt-2" style="max-height:100px;">
+        </div>
+        
+        <div class="login-body">
+            <form action="{% url 'accounts:register' %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-login btn-lg">Crear cuenta</button>
+                </div>
+            </form>
+        </div>
+    
+    <div class="text-center mt-4">
+        <img src="{% static 'images/platillo.png' %}" alt="Platillo Chino" class="img-fluid rounded shadow" style="max-height:80px;">
+        <p class="text-muted mt-3">&copy; 2025 Dragón Dorado. Todos los derechos reservados.</p>
+        <p class="text-muted"><a href="#" class="link-primary">Términos de uso</a> | <a href="#" class="link-primary">Política de privacidad</a></p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'main/base_user.html' %}
+
+{% block content %}
+<h1>Lista de Ordenes</h1>
+<a class="btn btn-primary" href="{% url 'mesas:ordenes_create' %}">Agregar Orden</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Fecha</th>
+            <th>Mesa</th>
+            <th>Total</th>
+            <th>Estatus</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for orden in ordenes %}
+        <tr>
+            <td>
+                <a class="btn btn-primary" href="{% url 'mesas:ordenes_detalle_list' orden.pk %}">Editar</a>
+                <a class="btn btn-success" href="{% url 'mesas:ordenes_pagar' orden.pk %}">Pagar</a>
+            </td>
+            <td>{{orden.fecha_hora}}</td>
+            <td>{{orden.mesa.nombre}}</td>
+            <td>{{orden.total}}</td>
+            <td>{{orden.estatus}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

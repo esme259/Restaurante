@@ -1,0 +1,13 @@
+{% extends 'main/base_user.html' %}
+
+{% block content %}
+<h1>Eliminar Estado de Mesa</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <p>¿Estás seguro de que deseas eliminar este estado de mesa? "{{ object.nombre }}"?</p>
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a class= "btn btn-primary" href="{% url 'mesas:mesas_estado_list' %}" class="btn btn-secondary">Regresar</a>
+</form>
+</form>
+{% endblock %}
