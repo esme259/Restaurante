@@ -24,6 +24,11 @@
 
 <h2>Total: {{total}}</h2>
 
-<a href="{% url 'mesas:ordenes_list' %}" class="btn btn-secondary">Regresar</a>
+<form action="{% url 'mesas:ordenes_pagar' orden.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Pagar</button>
+    <a href="{% url 'mesas:ordenes_list' %}" class="btn btn-secondary">Regresar</a>
+</form>
 
 {% endblock %}

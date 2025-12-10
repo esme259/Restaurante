@@ -9,6 +9,7 @@
             <th></th>
             <th>Fecha</th>
             <th>Mesa</th>
+            <th>Total</th>
             <th>Estatus</th>
         </tr>
     </thead>
@@ -16,11 +17,12 @@
         {% for orden in ordenes %}
         <tr>
             <td>
-                <a class="btn btn-primary" href="{% url 'mesas:orden_detalle_list' orden.pk %}">Editar</a>
+                <a class="btn btn-primary" href="{% url 'mesas:ordenes_detalle_list' orden.pk %}">Editar</a>
                 <a class="btn btn-success" href="{% url 'mesas:ordenes_pagar' orden.pk %}">Pagar</a>
             </td>
             <td>{{orden.fecha_hora}}</td>
             <td>{{orden.mesa.nombre}}</td>
+            <td>{{orden.total}}</td>
             <td>{{orden.estatus}}</td>
         </tr>
         {% endfor %}
