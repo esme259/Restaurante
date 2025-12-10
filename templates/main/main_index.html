@@ -67,78 +67,72 @@
 </style>
 
 <div class="header">
-    <h1>Panel de Control - El Nopal 🌵</h1>
+    <h1>Panel de Control - Dragón Dorado</h1>
     <p>Bienvenido al sistema de gestión del restaurante</p>
-</div>
+  </div>
 
-<div class="container my-5">
-
-    <!-- ESTADÍSTICAS -->
+  <div class="container my-5">
+    <!-- Estadísticas -->
     <div class="row g-4 mb-4">
-
-        <div class="col-md-3">
-            <div class="card p-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="text-muted">Ventas Hoy</h6>
-                        <h3 class="card-title">{{ventas_totales}}</h3>
-                        <p class="card-text small text-success"></p>
-                    </div>
-                    <div class="card-icon"><i class="bi bi-currency-dollar"></i></div>
-                </div>
+      <div class="col-md-3">
+        <div class="card p-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h6>Ventas Hoy</h6>
+              <h3 class="card-title">{{ventas_totales}}</h3>
+                  <p class="card-text small text-success"></p>
             </div>
+            <div class="card-icon"><i class="bi bi-currency-dollar"></i></div>
+          </div>
         </div>
-
-        <div class="col-md-3">
-            <div class="card p-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="text-muted">Órdenes Hoy</h6>
-                         <h3 class="card-title">{{cantidad_ordenes}}</h3>
-                         <p class="text-success"><i class="bi bi-arrow-up"></i> +5%</p>
-                    </div>
-                    <div class="card-icon"><i class="bi bi-cart-check"></i></div>
-                </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card p-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h6>Órdenes Hoy</h6>
+              <h3 class="card-title">{{cantidad_ordenes}}</h3>
+              <p class="text-success"><i class="bi bi-arrow-up"></i> +5%</p>
             </div>
+            <div class="card-icon"><i class="bi bi-cart-check"></i></div>
+          </div>
         </div>
-
-        <div class="col-md-3">
-            <div class="card p-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="text-muted">Clientes Nuevos</h6>
-                        <h3 class="fw-bold">8</h3>
-                        <p class="text-danger"><i class="bi bi-arrow-down"></i> -2%</p>
-                    </div>
-                    <div class="card-icon"><i class="bi bi-people"></i></div>
-                </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card p-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              
+              <h6>Clientes Nuevos</h6>
+              <h3>8</h3>
+              <p class="text-danger"><i class="bi bi-arrow-down"></i> -2%</p>
             </div>
+            <div class="card-icon"><i class="bi bi-people"></i></div>
+          </div>
         </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card p-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
 
-        <div class="col-md-3">
-            <div class="card p-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="text-muted">Rating Promedio</h6>
-                        <h3 class="fw-bold">4.7/5</h3>
-                        <p class="text-warning"><i class="bi bi-star-fill"></i> 128 reseñas</p>
-                    </div>
-                    <div class="card-icon"><i class="bi bi-star"></i></div>
-                </div>
+              <h6>Rating Promedio</h6>
+              <h3>4.7/5</h3>
+              <p class="text-warning"><i class="bi bi-star-fill"></i> 128 reseñas</p>
             </div>
+            <div class="card-icon"><i class="bi bi-star"></i></div>
+          </div>
         </div>
-
+      </div>
     </div>
 
-    <!-- ÓRDENES RECIENTES -->
+    <!-- Órdenes Recientes -->
     <div class="row g-4 mb-4">
-
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header"><h5>Órdenes Recientes</h5></div>
-                <div class="card-body">
-
-                    {% for orden in ultimas_ordenes %}
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header"><h5>Órdenes Recientes</h5></div>
+          <div class="card-body">
+             {% for orden in ultimas_ordenes %}
                 <div class="d-flex justify-content-between align-items-center mb-3">
                      <div class="d-flex align-items-center">
                           <div class="bg-light rounded p-2 me-2">
@@ -152,12 +146,12 @@
                         <span class="order-status-badge {% if orden.estatus == 'pagada' %}bg-success text-white{% elif orden.estatus == 'pendiente' %}bg-warning text-dark{% else %}bg-danger text-white{% endif %}">{{ orden.estatus }}</span>
                   </div>
             {% endfor %}
-            
-                </div>
-            </div>
+            <!-- Agrega más órdenes si lo deseas -->
+          </div>
         </div>
+      </div>
 
-         <!-- Ventas de la Semana -->
+      <!-- Ventas de la Semana -->
       <div class="col-md-6">
         <div class="card">
           <div class="card-header"><h5>Ventas de la Semana</h5></div>
@@ -168,7 +162,6 @@
       </div>
     </div>
 
-    
     <!-- Platos Populares -->
     <div class="card">
       <div class="card-header"><h5>Platillos Más Populares</h5></div>
