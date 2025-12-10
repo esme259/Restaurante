@@ -3,8 +3,10 @@ from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import MesasEstado, Mesa, Orden, OrdenDetalle, MetodoPago, Pago
-from .forms import MesasEstadoForm, MesaForm, OrdenForm, OrdenDetalleForm, MetodoPagoForm
+from .forms import MesasEstadoForm, MesaForm, OrdenForm, OrdenDetalleForm, MetodoPagoForm, PagoForm
 from django.views import View
+from django.db import transaction
+from django.shortcuts import redirect
 
 class MesasEstadoListView(LoginRequiredMixin, ListView):
     model = MesasEstado
@@ -49,11 +51,12 @@ class MesaDeleteView(LoginRequiredMixin, DeleteView):
     model = Mesa
     template_name = 'mesas/mesas_confirm_delete.html'
     success_url = '/mesas/mesas/'
-
+    
 class OrdenListView(LoginRequiredMixin, ListView):
     model = Orden
     template_name = 'ordenes/ordenes_list.html'
     context_object_name = 'ordenes'
+    ordering = ['-fecha_hora']
 
 class OrdenCreateView(LoginRequiredMixin, CreateView):
     model = Orden
@@ -95,7 +98,7 @@ class OrdenDetalleView(LoginRequiredMixin, ListView):
             return self.get(request, *args, **kwargs)
         else:
             return render(request, self.template_name, {'form': form, 'orden_detalles': self.get_queryset(), 'orden': Orden.objects.get(id=self.kwargs.get('orden_id'))})
-        
+
 class OrdenDetalleUpdateView(LoginRequiredMixin, View):
     def get(self, request, pk):
         detalle = OrdenDetalle.objects.get(id=pk)
@@ -105,7 +108,7 @@ class OrdenDetalleUpdateView(LoginRequiredMixin, View):
             'notas': detalle.notas,
             'orden_id': detalle.orden.id
         })
-        return render(request, 'ordenes/orden_detalle_edit_form.html', {'form': form, 'detalle': detalle})
+        return render(request, 'ordenes_detalles/orden_detalle_edit_form.html', {'form': form, 'detalle': detalle})
 
     def post(self, request, pk):
         detalle = OrdenDetalle.objects.get(id=pk)
@@ -116,13 +119,14 @@ class OrdenDetalleUpdateView(LoginRequiredMixin, View):
             detalle.notas = form.cleaned_data['notas']
             detalle.precio_unitario = form.cleaned_data['platillo'].precio
             detalle.save()
-            return render(request, 'ordenes/orden_detalle_list.html', {
+            return render(request, 'ordenes_detalles/orden_detalle_list.html', {
                 'orden_detalles': OrdenDetalle.objects.filter(orden=detalle.orden),
                 'orden': detalle.orden,
                 'form': OrdenDetalleForm(initial={'orden_id': detalle.orden.id})
             })
         else:
-            return render(request, 'ordenes/orden_detalle_edit_form.html', {'form': form, 'detalle': detalle})
+            return render(request, 'ordenes_detalles/orden_detalle_edit_form.html', {'form': form, 'detalle': detalle})
+
 
 class OrdenDetalleDeleteView(LoginRequiredMixin, DeleteView):
     model = OrdenDetalle
@@ -130,14 +134,35 @@ class OrdenDetalleDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return f'/ordenes/ordenes/{self.object.orden.id}/detalles/'
-
+    
 class OrdenPagarView(LoginRequiredMixin, View):
     def get(self, request, orden_id):
         orden = Orden.objects.get(id=orden_id)
         detalles = OrdenDetalle.objects.filter(orden=orden)
         total = sum(detalle.cantidad * detalle.precio_unitario for detalle in detalles)
-        return render(request, 'ordenes/ordenes_pagar.html', {'orden': orden, 'detalles': detalles, 'total': total})
-       
+        
+        form = PagoForm(initial={'orden': orden, 'cantidad': total})
+
+        return render(request, 'ordenes/ordenes_pagar.html', {'orden': orden, 'detalles': detalles, 'total': total, 'form': form})
+    def post(self, request, orden_id):
+        form = PagoForm(request.POST)
+        if form.is_valid():
+            with transaction.atomic():
+                pago = form.save(commit=False)
+                pago.orden = Orden.objects.get(id=orden_id)
+                pago.save()
+
+                orden = pago.orden
+                orden.estatus = 'pagada'
+                orden.save()
+
+                mesa = orden.mesa
+                mesa.estado = MesasEstado.objects.get(nombre='Disponible')
+                mesa.save()
+
+                return redirect('mesas:ordenes_list')
+        return render(request, 'ordenes/ordenes_pagar.html', {'form': form})
+    
 class MetodoPagoListView(LoginRequiredMixin, ListView):
     model = MetodoPago
     template_name = 'metodos_pagos/metodos_pago_list.html'

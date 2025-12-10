@@ -13,15 +13,15 @@ urlpatterns = [
     path('mesas/add/', views.MesaCreateView.as_view(), name='mesas_create'),
     path('mesas/<int:pk>/edit/', views.MesaUpdateView.as_view(), name='mesas_edit'),
     path('mesas/<int:pk>/delete/', views.MesaDeleteView.as_view(), name='mesas_delete'),
-
+    
     path('ordenes/', views.OrdenListView.as_view(), name='ordenes_list'),
     path('ordenes/add/', views.OrdenCreateView.as_view(), name='ordenes_create'),
-
-    path('ordenes/<int:orden_id>/detalles/', views.OrdenDetalleView.as_view(), name='orden_detalle_list'),
+    
+    path('ordenes/<int:orden_id>/detalles/', views.OrdenDetalleView.as_view(), name='ordenes_detalle_list'),
     path('ordenes/<int:pk>/detalles/edit/', views.OrdenDetalleUpdateView.as_view(), name='ordenes_detalle_update'),
     path('ordenes/detalles/eliminar/<int:pk>/', views.OrdenDetalleDeleteView.as_view(), name='ordenes_detalle_delete'),
-
-     path('ordenes/<int:orden_id>/pagar', views.OrdenPagarView.as_view(), name='ordenes_pagar'),
+    
+    path('ordenes/<int:orden_id>/pagar', views.OrdenPagarView.as_view(), name='ordenes_pagar'),
     
     path('metodos_pago/', views.MetodoPagoListView.as_view(), name='metodos_pago_list'),
     path('metodos_pago/add/', views.MetodoPagoCreateView.as_view(), name='metodos_pago_create'),
