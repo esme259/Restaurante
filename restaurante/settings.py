@@ -31,7 +31,7 @@ CSRF_TRUSTED_ORIGINS = [
 SECRET_KEY = 'django-insecure-_)_5v6k-9_&b-&y&@)=uz*m5jq+^y5g0xk1c#3=y9xhss%1th+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -87,15 +87,15 @@ WSGI_APPLICATION = 'restaurante.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-       'ENGINE': 'django.db.backends.sqlite3',
-       'NAME': BASE_DIR / 'db.sqlite3',
-   }
+#    'default': {
+#       'ENGINE': 'django.db.backends.sqlite3',
+#       'NAME': BASE_DIR / 'db.sqlite3',
+#   }
     
-#    'default': dj_database_url.config(
-#           default=os.environ.get("DATABASE_URL"),
-#           conn_max_age=600,
-#       )
+    'default': dj_database_url.config(
+           default=os.environ.get("DATABASE_URL"),
+           conn_max_age=600,
+       )
 }
 
 # Password validation
